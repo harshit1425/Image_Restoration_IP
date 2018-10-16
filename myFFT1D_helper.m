@@ -1,9 +1,8 @@
 function [output] = myFFT1D_helper(input, N)
-	% Input:
-	%		input 		-> Input Sequence
-	% 		N 			-> Length of the sequence (Assumed to be a power of 2)
+%%%% N  = some power of 2
+%%%%% input - input sequence
 
-	% Base Case
+%%%% case when N =2 
 	if N == 2
 		% Do nothing since input(1) is already set
 		output = [input(1)+input(2), input(1)-input(2)];
@@ -15,17 +14,17 @@ function [output] = myFFT1D_helper(input, N)
 	odd_inputs = input(2:2:N);
 
 	% Calling the recursions
-	Ek = myFFT1D_helper(even_inputs, N/2);
-	Ok = myFFT1D_helper(odd_inputs, N/2);
+	Even_k = myFFT1D_helper(even_inputs, N/2);
+	Odd_k = myFFT1D_helper(odd_inputs, N/2);
 
-	u = 0:N/2-1;
-	w = exp(-1i*2*pi*u/N);
+	v = 0:N/2-1;
+	z = exp(-1i*2*pi*v/N);
 
 	% Using the cyclicity; DFT(k) = DFT(k+N/2)
-	half1 = Ek + w.*Ok;
-	half2 = Ek - w.*Ok;
+	half_1 = Even_k + z.*Odd_k;
+	half_2 = Even_k - z.*Odd_k;
 
 	% Combining the two halves
-	output = [half1, half2];
+	output = [half_1, half_2];
 
 end

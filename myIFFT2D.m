@@ -1,10 +1,4 @@
 function idft = myIFFT2D(original_img)
-	% Input:
-	%       original_img    -> Original Input Image
-	%
-	% Output:
-	%		 dft 		-> 2D DFT of the input image 
-	%
 	% Description:
 	%		: Calculates the centralised 2D DFT of the input image
 	%		: All the operations are performed on the variable "img_val"
@@ -22,23 +16,23 @@ function idft = myIFFT2D(original_img)
 	[M,N] = size(img_val);
 
 	% Padding to achieve resolution to the nearest power of 2	
-	M_pow2 = pow2(nextpow2(M));
-	N_pow2 = pow2(nextpow2(N));
+	M_new = pow2(nextpow2(M));
+	N_new = pow2(nextpow2(N));
 
-	pad_img = zeros(M_pow2, N_pow2);
+	pad_img = zeros(M_new, N_new);
 	pad_img(1:M, 1:N) = img_val;
 
 	%% Calculating 2D-DFT
-	dft = zeros(M_pow2, N_pow2);
+	dft = zeros(M_new, N_new);
 
 	% Apply 1D FFT to every row
-	for i=1:M_pow2
-		dft(i, :) = myFFT1D(pad_img(i, :), N_pow2);
+	for i=1:M_new
+		dft(i, :) = myFFT1D(pad_img(i, :), N_new);
 	end
 
 	% Apply 1D FFT to every column
-	for i=1:N_pow2
-		dft(:, i) = myFFT1D(transpose(dft(:, i)), M_pow2);
+	for i=1:N_new
+		dft(:, i) = myFFT1D(transpose(dft(:, i)), M_new);
 	end
 
 	%% Displaying the images

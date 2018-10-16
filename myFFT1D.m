@@ -1,6 +1,5 @@
 function fft_seq = myFFT1D(input_sequence, n_points)
-	% Returns the 1D-DFT of an input sequence
-	% Does by FFT-algorithm (Radix-2 DIT)
+	% Returns the 1D-DFT of a sequence by FFT algorithm
 
 	% Finding the nearest power of 2
 	near_pow2 = pow2(nextpow2(n_points));
